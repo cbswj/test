@@ -5,7 +5,7 @@ as the new convolutional filter. To save computation during decomposition the re
 convolutional filters.
 
 
-group sparsity, see Fig.Consider a 4D convolutional filter, reshaped into a 2D matrix W ∈ R
+The hinge point between pruning and decomposition is group sparsity, see Fig.Consider a 4D convolutional filter, reshaped into a 2D matrix W ∈ R
 features×outputs. Group sparsity is added by introducing a sparsity-inducing matrix A. 
 By applying group sparsity constraints on the columns of A, the output channel of the sparsity-inducing matrix A
 and equivalently of the matrix product W × A can be reduced by solving an optimization problem. This is equivalent
