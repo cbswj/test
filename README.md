@@ -57,5 +57,4 @@ Structural pruning. To circumvent the above problem, structural pruning approach
 
 
 
-are obtained by observing the influence of the proximal
-gradient method on the filter during the optimization.
+
