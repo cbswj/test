@@ -11,6 +11,4 @@ By applying group sparsity constraints on the columns of A, the output channel o
 and equivalently of the matrix product W × A can be reduced by solving an optimization problem. This is equivalent
 to filter pruning. On the other hand, if the group sparsity constraints are applied on the rows of A, then the inner
 channels of the matrix product W × A, namely, the output channel of W and the input channel of A, can be reduced.
-To save the computation, the single heavyweight convolution W is converted to a lightweight and a 1×1 convolution
-with respect to the already reduced matrices Wr and Ar
-.
+To save the computation, the single heavyweight convolution W is converted to a lightweight and a 1×1 convolution with respect to the already reduced matrices Wr and Ar.
