@@ -29,10 +29,12 @@ The rest of the paper is organized as follows. Sec. 2 discusses the related work
 
 
 2. Related Work
+
 In this section, we firstly review the closely related work including decomposition-based and pruning-based compression methods. Then, we list other categories of network compression works.
 
 
 2.1. Parameter Pruning for Network Compression
+
 Non-structural pruning. To compress neural networks, network pruning disables the weak connections in a network that have a small influence on its prediction accuracy. Earlier pruning methods explore unstructured network weight pruning by deactivating connections corresponding to small weights or by applying sparsity regularization to the weight parameters. The resulting irregular weight parameters of the network are not implementationfriendly, which hinders the real acceleration rate of the pruned network over the original one.
 
 
