@@ -52,8 +52,17 @@ Another category of works compresses network parameters through tensor decomposi
 
 Other network compression methods include network quatization and knowledge distillation. Network quantization aims at a low-bit representation of network parameters to save storage and to accelerate inference. This method does not change the architecture of the fully-fledged network. Knowledge distillation transfers the knowledge of a teacher network to a student network. Current research in this direction focuses on the architectural design of the student network and the loss function.
 
+3. The proposed method
 
+This section explains the proposed method (Fig. 2). Specifically, it describes how group sparsity can hinge filter pruning and decomposition. The pair {x, y} denotes the input and target of the network. Without loss of clarity, we also use x to denote the input feature map of a layer. The
+output feature map of a layer is denoted by z. The filters of a convolutional layer are denoted by W while the introduced group sparsity matrix is denoted by A. The rows and columns of A are denoted by Ai, and Aj, respectively. The general structured groups of A are denoted by Ag.
 
+3.1. Group sparsity
+
+The convolution between the input feature map x and the filters can be converted to a matrix multiplication, i.e., where X ∈ RN×cwh, W ∈ Rcwh×n, and Z ∈ RN×n are the reshaped input feature map, output feature map, and convolutional filter, c, n, w × h, and N denotes the input channel, number of filters, filter size, and number of reshaped features, respectively. For the sake of brevity, the bias term is omitted here. The weight parameters W are usually trained with some regularization such as weight decay to avoid overfitting the network. To get structured pruning of the filter, structured sparsity regularization is used to constrain the filter, i.e. where D(·) and R(·) are the weight decay and sparsity regularization, µ and λ are the regularization factors.
+
+Different from other group sparsity methods that directly regularize the matrix W, we enforce group sparsity constraints by incorporating a sparsity-inducing matrix A ∈ R
+n×n, which can be converted to the filter of a 1 × 1 convolutional layer after the original layer. Then the original convolution in Eqn. 1 becomes Z = X × (W × A). To obtain a structured sparse matrix, group sparsity regularization is enforced on A. Thus, the loss function becomes Solving the problem in Eqn. 3 results in structured group sparsity in matrix A. By considering matrix W and A together, the actual effect is that the original convolutional filter is compressed.
 
 
 
