@@ -117,6 +117,7 @@ For the ResNet and ResNeXt bottleneck block, 1 × 1 convolutions are already the
 5. Experimental Results
 
 In this section, the proposed method is validated on three image classification datasets including CIFAR10, CIFAR100, and ImageNet2012. The network compression method is applied to ResNet, ResNeXt, VGG, and DenseNet on CIFAR10 and CIFAR100, WRN on CIFAR100, and ResNet50 on ImageNet2012. For ResNet20 and ResNet56 on CIFAR dataset, the residual block is the basic ResBlock with two 3 × 3 convolutional layers. For ResNet164 on CIFAR and ResNet50 on ImageNet, the residual block is a bottleneck block. The investigated models of ResNeXt are ResNeXt20 and ResNeXt164 with carlinality 32, and bottleneck width 1. WRN has 16 convolutional layers with widening factor 10.
+The training protocol of the original network is as follows. The networks are trained for 300 epochs with SGD on CIFAR dataset. The momentum is 0.9 and the weight decay factor is 10−4. Batch size is 64. The learning rate starts with 0.1 and decays by 10 at Epoch 150 and 225. The ResNet50 model is loaded from the pretrained PyTorch model. The models are trained with Nvidia Titan Xp GPUs. The proposed network compression method is implemented by PyTorch. We fix the hyper parameters of the proposed method by empirical studies. The stop criterion α in Algorithm 1 is set to 0.1. The threshold T is set to 0.005.
 
 
 
