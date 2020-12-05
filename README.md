@@ -54,8 +54,7 @@ Other network compression methods include network quatization and knowledge dist
 
 3. The proposed method
 
-This section explains the proposed method (Fig. 2). Specifically, it describes how group sparsity can hinge filter pruning and decomposition. The pair {x, y} denotes the input and target of the network. Without loss of clarity, we also use x to denote the input feature map of a layer. The
-output feature map of a layer is denoted by z. The filters of a convolutional layer are denoted by W while the introduced group sparsity matrix is denoted by A. The rows and columns of A are denoted by Ai, and Aj, respectively. The general structured groups of A are denoted by Ag.
+This section explains the proposed method (Fig. 2). Specifically, it describes how group sparsity can hinge filter pruning and decomposition. The pair {x, y} denotes the input and target of the network. Without loss of clarity, we also use x to denote the input feature map of a layer. The output feature map of a layer is denoted by z. The filters of a convolutional layer are denoted by W while the introduced group sparsity matrix is denoted by A. The rows and columns of A are denoted by Ai, and Aj, respectively. The general structured groups of A are denoted by Ag.
 
 3.1. Group sparsity
 
