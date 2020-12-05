@@ -43,6 +43,14 @@ Figure 2: The flowchart of the proposed algorithm.
 Structural pruning. To circumvent the above problem, structural pruning approaches zero out structured groups of he convolutional filters. Specifically, group sparsity regularization has been investigated in recent works for the structural pruning of network parameters.Wen et al. and Alvarez et al. proposed to impose group sparsity regularization on network parameters to reduce the number of feature map channels in each layer. The success of this method triggered the studies of group sparsity based network pruning. Subsequent works improved group sparsity based approaches in different ways. One branch of works combined the group sparsity regularizer with other regularizers for network pruning. A lowrank regularizer as well as an exclusive sparsity regularizer were adopted for improving the pruning performance. Another branch of research investigated a better group-sparsity regularizer for parameter pruning including group ordered weighted `1 regularizer, out-in-channel sparsity regularization and guided attention for sparsity learning. In addition, some works also attempted to achieve group-sparse parameters in an indirect manner. In and, scaling factors were introduced to scale the outputs of specific structures or feature map channels to structurally prune network parameters.
 
 
+2.2. Filter Decomposition for Network Compression
+
+Another category of works compresses network parameters through tensor decomposition. Specifically, the original filter is decomposed into a lightweight one and a linear projection which contain much fewer parameters than the original, thus resulting in the reduction of parameters and computations. Early works apply matrix decomposition methods such as SVD or CP-decomposition to decompose 2D filters. In, Jaderberg et al. proposed to approximate the 2D filter set by a linear combination of a smaller basis set of 2D separable filters. Subsequent filter basis decomposition works polished the approach in by using a shared filter basis or by enabling more flexible filter decomposition. In addition, Zhang et al. took the input channel as the third dimension and directly compress the 3D parameter tensor.
+
+
+2.3. Other methods
+
+Other network compression methods include network quatization and knowledge distillation. Network quantization aims at a low-bit representation of network parameters to save storage and to accelerate inference. This method does not change the architecture of the fully-fledged network. Knowledge distillation transfers the knowledge of a teacher network to a student network. Current research in this direction focuses on the architectural design of the student network and the loss function.
 
 
 
