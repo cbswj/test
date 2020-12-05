@@ -114,7 +114,9 @@ Here, the natural choice of sparsity-inducing matrices are the leading and the e
 
 For the ResNet and ResNeXt bottleneck block, 1 × 1 convolutions are already there. So the original network parameters are used directly. However, it is necessary to initialize the newly added sparsity-inducing matrix A. Two initialization methods are tried. The first one initializes W and A with the pretrained parameters and identity matrix, respectively. The second method first calculates the singular value decomposition of W, i.e. W = USVT . Then the left eigenvector U and the matrix SVT are used to initialize W and A. Note that the singular values are annexed by the right eigenvector. Thus, the columns of W, i.e. the filters of the convolutional layer ly on the surface of the unit sphere in the high-dimensional space.
 
+5. Experimental Results
 
+In this section, the proposed method is validated on three image classification datasets including CIFAR10, CIFAR100, and ImageNet2012. The network compression method is applied to ResNet, ResNeXt, VGG, and DenseNet on CIFAR10 and CIFAR100, WRN on CIFAR100, and ResNet50 on ImageNet2012. For ResNet20 and ResNet56 on CIFAR dataset, the residual block is the basic ResBlock with two 3 × 3 convolutional layers. For ResNet164 on CIFAR and ResNet50 on ImageNet, the residual block is a bottleneck block. The investigated models of ResNeXt are ResNeXt20 and ResNeXt164 with carlinality 32, and bottleneck width 1. WRN has 16 convolutional layers with widening factor 10.
 
 
 
