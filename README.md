@@ -110,6 +110,11 @@ In the analysis of Sec. 3, a 1×1 convolutional layer with the sparsity-inducing
 The ResNet and ResNeXt bottleneck block has the structure of 1 × 1 → 3 × 3 → 1 × 1 convolutions.
 Here, the natural choice of sparsity-inducing matrices are the leading and the ending convolutions. For the ResNet bottleneck block, the two matrices select the input and output channels of the middle 3 × 3 convolution, respectively. Things become a little bit different for the ResNeXt bottleneck since the middle 3×3 convolution is a group convolution. So the aim becomes enforcing sparsity on the already existing groups of the group convolution. In order to do that, the parameters related to the groups in the two sparsityinducing matrices are concatenated. Then group sparsity is enforced on the new matrix. After the compression phase, a whole group can be nullified.
 
+4.2. Initialization of W and A
+
+For the ResNet and ResNeXt bottleneck block, 1 × 1 convolutions are already there. So the original network parameters are used directly. However, it is necessary to initialize the newly added sparsity-inducing matrix A. Two initialization methods are tried. The first one initializes W and A with the pretrained parameters and identity matrix, respectively. The second method first calculates the singular value decomposition of W, i.e. W = USVT . Then the left eigenvector U and the matrix SVT are used to initialize W and A. Note that the singular values are annexed by the right eigenvector. Thus, the columns of W, i.e. the filters of the convolutional layer ly on the surface of the unit sphere in the high-dimensional space.
+
+
 
 
 
