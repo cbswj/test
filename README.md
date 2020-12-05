@@ -90,6 +90,9 @@ After the compression phase stops, the resulting compression ratio is not exactl
 In the ResNet basic block, both of the two 3 × 3 convolutional layers are attached a sparsity-inducing matrix A1 and A2, namely, 1×1 convolutional layers. We empirically find that the gradient of the first sparsity-inducing matrix is larger than that of the second. Thus, it is easier for the first matrix to jump to a point with larger average group `2 norms. This results in unbalanced compression of the two sparsity-inducing matrices since the same nullifying threshold is used for all of the layers. That is, much more channels of A2 are compressed than that of the first one. This is not a desired compression approach since both of the two layers are equally important. A balanced compression between them is preferred.
 To solve this problem, we adjust the learning rate of the first and second sparsity-inducing matrices according to their gradients. Let the ratio of the average group `2 norm between the gradients of the matrices be Then the learning rate of the first convolution is divided byρm. We empirically set m = 1.35
 
+3.6. Group `2 norm based layer balancing
+
+The proximal gradient method depends highly on the group sparsity term. That is, if the initial `2 norm of a group is small, then it is highly likely that this group will be nullified. The problem is that the distribution of the group `2 norm across different layers varies a lot, which can result in quite unbalanced compression of the layers. In this case, a quite narrow bottleneck could appear in the compressed network and would hamper the performance. To solve this problem, we use the mean of the group `2 norm of a layer to recalibrate the regularization factor of the layer. That is, where λl is the regularization factor of the l-th layer. In this way, the layers with larger average group `2 norm get a larger punishment.
 
 
 
