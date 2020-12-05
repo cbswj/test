@@ -63,8 +63,7 @@ The convolution between the input feature map x and the filters can be converted
 Different from other group sparsity methods that directly regularize the matrix W, we enforce group sparsity constraints by incorporating a sparsity-inducing matrix A ∈ R
 n×n, which can be converted to the filter of a 1 × 1 convolutional layer after the original layer. Then the original convolution in Eqn. 1 becomes Z = X × (W × A). To obtain a structured sparse matrix, group sparsity regularization is enforced on A. Thus, the loss function becomes Solving the problem in Eqn. 3 results in structured group sparsity in matrix A. By considering matrix W and A together, the actual effect is that the original convolutional filter is compressed.
 
-
-
+In comparison with the filter selection method, the proposed method not only selects the filters in a layer, but also makes linear combinations of the filters to minimize the error between the original and the compact filter. On the other hand, different from other group sparsity constraints, there is no need to change the original filters W of the network too much during optimization of the sparsity problem. In our experiments, we set a much smaller learning rate for the pretrained weight W.
 
 
 
