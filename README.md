@@ -65,6 +65,15 @@ n×n, which can be converted to the filter of a 1 × 1 convolutional layer after
 
 In comparison with the filter selection method, the proposed method not only selects the filters in a layer, but also makes linear combinations of the filters to minimize the error between the original and the compact filter. On the other hand, different from other group sparsity constraints, there is no need to change the original filters W of the network too much during optimization of the sparsity problem. In our experiments, we set a much smaller learning rate for the pretrained weight W.
 
+3.2. The hinge
+
+The group sparsity term in Eqn. 3 controls how the network is compressed. This term has the form where Ag denotes the different groups of A, kAgk2 is the `2 norm of the group, and Φ(·) is a function of the group `2 norms.
+
+If group sparsity regularization is added to the columns of A as in Fig. 3a, i.e., R(A) = Φ(kAjk2), a column pruned version Ac is obtained and the output channels of the corresponding 1 × 1 convolution are pruned. In this case, we can multiply W and Ac and use the result as the filter of the convolutional layer. This is equivalent to pruning the output channels of the convolutional layer with the filter W.
+
+On the other hand, group sparsity can be also applied to the rows of A, i.e. R(A) = Φ(kAik2). In this case, a row-sparse matrix Ar is derived and the input channels of the 1 × 1 convolution can be pruned (See Fig. 3b). Accordingly, the corresponding output channels of the former convolution with filter W can be also pruned. However, since the output channel of the later convolution is not changed, multiplying out the two compression matrices do not save any computation. So a better choice is to leave them as two separate convolutional layers. This tensor manipulation method is equivalent to filter decomposition where a single convolution is decomposed into a lightweight one and a linear combination. In conclusion, by enforcing group sparsity to the columns and rows of the introduced matrix A, we can derive two tensor manipulation methods that are equivalent to the operation of filter pruning and decomposition, respectively. This provides a degree of freedom to choose the tensor manipulation method depending on the specifics of the underlying network.
+
+
 
 
 
