@@ -94,6 +94,14 @@ To solve this problem, we adjust the learning rate of the first and second spars
 
 The proximal gradient method depends highly on the group sparsity term. That is, if the initial `2 norm of a group is small, then it is highly likely that this group will be nullified. The problem is that the distribution of the group `2 norm across different layers varies a lot, which can result in quite unbalanced compression of the layers. In this case, a quite narrow bottleneck could appear in the compressed network and would hamper the performance. To solve this problem, we use the mean of the group `2 norm of a layer to recalibrate the regularization factor of the layer. That is, where λl is the regularization factor of the l-th layer. In this way, the layers with larger average group `2 norm get a larger punishment.
 
+3.7. Regularization factor annealing
+
+The compression procedure starts with a fixed regularization factor. However, towards the end of the compression phase, the fixed regularization factor may be so large that more than the desired groups are nullified in an epoch. Thus, to solve the problem, we anneal the regularization factor when the average group `2 norm shrinks below some threshold. The annealing also impacts the proximal step but has less influence while the gradient step plays a more active role in finding the local minimum.
+
+3.8. Distillation loss in the finetuning phase
+
+In Eqn. 3, the prediction loss and the groups sparsity regularization are used to solve the compression problem. After the compression phase, the derived model is further finetuned. During this phase, a distillation loss is exploited to force similar logit outputs of the original network and the pruned one. The vanilla distillation loss is used, i.e. where Lce(·) denotes the cross-entropy loss, σ(·) is the softmax function, zc and zo are the logit outputs of the compressed and the original network. For the sake of simplicity, the network parameters are omitted. We use a fixed balancing factor α = 0.4 and temperature T = 4.
+
 
 
 
