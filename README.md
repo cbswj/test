@@ -73,7 +73,11 @@ If group sparsity regularization is added to the columns of A as in Fig. 3a, i.e
 
 On the other hand, group sparsity can be also applied to the rows of A, i.e. R(A) = Φ(kAik2). In this case, a row-sparse matrix Ar is derived and the input channels of the 1 × 1 convolution can be pruned (See Fig. 3b). Accordingly, the corresponding output channels of the former convolution with filter W can be also pruned. However, since the output channel of the later convolution is not changed, multiplying out the two compression matrices do not save any computation. So a better choice is to leave them as two separate convolutional layers. This tensor manipulation method is equivalent to filter decomposition where a single convolution is decomposed into a lightweight one and a linear combination. In conclusion, by enforcing group sparsity to the columns and rows of the introduced matrix A, we can derive two tensor manipulation methods that are equivalent to the operation of filter pruning and decomposition, respectively. This provides a degree of freedom to choose the tensor manipulation method depending on the specifics of the underlying network.
 
+3.3. Proximal gradient solver
 
+To solve the problem defined by Eqn. 3, the parameter W can be updated with stochastic gradient descent(SGD) but with a small learning rate, i.e. Wt+1 = Wt − ηs∇G(Wt), where G(Wt) = L(· , f(· ;Wt, ·)) + µD(Wt). This is because it is not desired to modify the pretrained parameters too much during the optimization phase. The focus should be the sparsity matrix A.
+
+The proximal gradient algorithm is used to optimize the matrix A in Eqn. 3. It consists of two steps, i.e. the gradient descent step and the proximal step. The parameters in A are first updated by SGD with the gradient of the loss function H(A) = L(y, f(x;W, A)), namely, where η is the learning rate and η >> ηs. Then the proximal operator chooses a neighborhood point of At+∆ that minimizes the group sparsity regularization, i.e.
 
 
 
