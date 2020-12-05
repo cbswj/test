@@ -85,6 +85,13 @@ The sparsity regularizer Φ(·) can have different forms, e.g., `1 norm, `1/2 no
 
 After the compression phase stops, the resulting compression ratio is not exactly the same as the target compression ratio. To fit the target compression ratio, we use a binary search algorithm to determine the nullifying threshold T . The compression ratio γ is actually a monotonous function of the threshold T , i.e. γ = g(T ). However, the explicit expression of the function g(·) is not known. Given a target compression threshold γ∗, we want to derive the threshold used to nullifying the sparse groups, i.e. T∗ = g−1(γ∗), where g−1(·) is the inverse function of g(·). The binary search approach shown in Algorithm 2 starts with an initial threshold T0 and a step s. It adjusts the threshold T according to the values of the current and target compression ratio. The step s is halved if the target compression ratio sits between the previous one γn−1 and the current one γn. The searching procedure stops if final compression ratio γn is closed enough to the target, i.e., |γn − γ∗| ≤ C.
 
+3.5. Gradient based adjustment of learning rate
+
+In the ResNet basic block, both of the two 3 × 3 convolutional layers are attached a sparsity-inducing matrix A1 and A2, namely, 1×1 convolutional layers. We empirically find that the gradient of the first sparsity-inducing matrix is larger than that of the second. Thus, it is easier for the first matrix to jump to a point with larger average group `2 norms. This results in unbalanced compression of the two sparsity-inducing matrices since the same nullifying threshold is used for all of the layers. That is, much more channels of A2 are compressed than that of the first one. This is not a desired compression approach since both of the two layers are equally important. A balanced compression between them is preferred.
+To solve this problem, we adjust the learning rate of the first and second sparsity-inducing matrices according to their gradients. Let the ratio of the average group `2 norm between the gradients of the matrices be Then the learning rate of the first convolution is divided byρm. We empirically set m = 1.35
+
+
+
 
 
 
