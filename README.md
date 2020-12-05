@@ -102,6 +102,14 @@ The compression procedure starts with a fixed regularization factor. However, to
 
 In Eqn. 3, the prediction loss and the groups sparsity regularization are used to solve the compression problem. After the compression phase, the derived model is further finetuned. During this phase, a distillation loss is exploited to force similar logit outputs of the original network and the pruned one. The vanilla distillation loss is used, i.e. where Lce(·) denotes the cross-entropy loss, σ(·) is the softmax function, zc and zo are the logit outputs of the compressed and the original network. For the sake of simplicity, the network parameters are omitted. We use a fixed balancing factor α = 0.4 and temperature T = 4.
 
+4. Implementation Considerations ( 구현 고려 사항 )
+
+4.1. Sparsity-inducing matrix in network blocks
+
+In the analysis of Sec. 3, a 1×1 convolutional layer with the sparsity-inducing matrix is appended after the uncompressed layer. When it comes to different network blocks, we tweak it a little bit. As stated, both of the 3 × 3 convolutions in the ResNet basic block are appended with a 1 × 1 convolution. For the first sparsity-inducing matrix, group sparsity regularization can be enforced on either the columns or the rows of the matrix. As for the second matrix, group sparsity can be enforced on its rows due to the existence of the skip connection.
+The ResNet and ResNeXt bottleneck block has the structure of 1 × 1 → 3 × 3 → 1 × 1 convolutions.
+Here, the natural choice of sparsity-inducing matrices are the leading and the ending convolutions. For the ResNet bottleneck block, the two matrices select the input and output channels of the middle 3 × 3 convolution, respectively. Things become a little bit different for the ResNeXt bottleneck since the middle 3×3 convolution is a group convolution. So the aim becomes enforcing sparsity on the already existing groups of the group convolution. In order to do that, the parameters related to the groups in the two sparsityinducing matrices are concatenated. Then group sparsity is enforced on the new matrix. After the compression phase, a whole group can be nullified.
+
 
 
 
